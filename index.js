@@ -1,27 +1,31 @@
-let snakemode = false;
-let points = 0;
-let row;
-let lost = false;
-let height = 20;
-let intervals = 18;
-let width = 162;
-let pipeBod = " ░▒▓█▓▒░ ";
-let pipeHead = "░▒▓███▓▒░";
-let space = "         ";
+let snakemode = false,
+  points = 0,
+  lost = false,
+  height = 20,
+  intervals = 18,
+  width = 162,
+  pipeBod = " ░▒▓█▓▒░ ",
+  pipeHead = "░▒▓███▓▒░",
+  space = "         ",
+  lastCell = 2,
+  sliced = 0,
+  h = height / 2,
+  x = 8,
+  frametoggle = 0,
+  onPipe = false;
 
 function rand() {
-  let min = 3;
-  let max = 14;
-  let rand = Math.round(Math.random() * (max - min) + min);
+  let min = 3,
+    max = 14,
+    rand = Math.round(Math.random() * (max - min) + min);
   return rand;
 }
 
-let lastCell = 2;
 function addDraw(bg) {
-  let newbg = bg.split("\n");
-  let newArr = [];
-  let prog = 0;
-  let pos = rand();
+  let newbg = bg.split("\n"),
+    newArr = [],
+    prog = 0,
+    pos = rand();
   if (lastCell > 0) {
     newbg.forEach((lin) => {
       newArr.push((lin += space));
@@ -83,7 +87,7 @@ function start() {
   }
   movebg(lines);
 }
-let sliced = 0;
+
 function movebg(bg) {
   bgArr = bg.split("\n");
   let newArr = [];
@@ -112,9 +116,7 @@ function setCharAt(str, index, chr, losable = false) {
   if (index > str.length - 1) return str;
   return str.substring(0, index) + chr + str.substring(index + 1);
 }
-let h = height / 2;
-let x = 8;
-let frametoggle = 0;
+
 function addBird(bg) {
   frametoggle++;
 
@@ -153,7 +155,6 @@ function uLost() {
   process.exit();
 }
 
-let onPipe = false;
 function pointCheck(bg) {
   let state = onPipe;
   if (bg.charAt(x) != " ") {
