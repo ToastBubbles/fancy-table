@@ -1,30 +1,3 @@
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log("░▒▓███▓▒░");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("         ");
-// console.log("░▒▓███▓▒░");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(" ░▒▓█▓▒░ ");
-// console.log(
-//   "000000000011111111112222222222333333333344444444445555555555666666666677777777778888888888999999999900000000001111111111222222222233333333334444444444555555555566"
-// );
-// const readline = require("readline").createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
 let snakemode = false;
 let points = 0;
 let row;
@@ -35,37 +8,26 @@ let width = 162;
 let pipeBod = " ░▒▓█▓▒░ ";
 let pipeHead = "░▒▓███▓▒░";
 let space = "         ";
-//
+
 function rand() {
   let min = 3;
   let max = 14;
   let rand = Math.round(Math.random() * (max - min) + min);
-  //   console.log(rand);
   return rand;
 }
-// rand();
+
 let lastCell = 2;
 function addDraw(bg) {
-  //   console.log("drawinf");
   let newbg = bg.split("\n");
   let newArr = [];
   let prog = 0;
   let pos = rand();
-  // while(newbg.)
   if (lastCell > 0) {
     newbg.forEach((lin) => {
       newArr.push((lin += space));
     });
     lastCell -= 1;
-  }
-  //   else {
-  //     if (lastCell > 0) {
-  //       newbg.forEach((lin) => {
-  //         newArr.push((lin += space));
-  //       });
-  //       lastCell -= 1;
-  //     }
-  else {
+  } else {
     newbg.forEach((lin) => {
       if (prog < pos) {
         newArr.push((lin += pipeBod));
@@ -82,8 +44,6 @@ function addDraw(bg) {
       prog++;
     });
   }
-  //   console.log(lastCell);
-  //   }
   return newArr.join("\n");
 }
 function start() {
@@ -92,8 +52,6 @@ function start() {
   prog = 0;
   lines = "";
   while (prog < height) {
-    // lines += draw();
-
     let line = "";
     let i = 0;
     let pipe = 0;
@@ -117,9 +75,6 @@ function start() {
         line += space;
         lastCell -= 1;
       }
-      //   console.log(lastCell);
-
-      //   position = rand();
       i++;
     }
     line += "\n";
@@ -127,33 +82,24 @@ function start() {
     prog++;
   }
   movebg(lines);
-  //   console.log(lines);
 }
 let sliced = 0;
 function movebg(bg) {
   bgArr = bg.split("\n");
   let newArr = [];
-  //   bgArr.forEach((line) => {
 
-  //   });
   for (let line of bgArr) {
     newArr.push(line.slice(1));
   }
   sliced++;
   bg = newArr.join("\n");
   if (sliced < 9) {
-    // sliced++;
   } else {
     sliced = 0;
-    //add new cell
-    // console.log("drawing");
+
     bg = addDraw(bg);
-    // console.log("adding cell");
-    // newArr.push(line.slice(1));
-    // sliced++;
   }
 
-  //   console.log(bg);
   addBird(bg);
 }
 
@@ -171,7 +117,7 @@ let x = 8;
 let frametoggle = 0;
 function addBird(bg) {
   frametoggle++;
-  //   bg.charAt(width + 5);
+
   `
      ,---.
     [   O '>
@@ -181,15 +127,12 @@ function addBird(bg) {
   let birdbg = setCharAt(bg, width * h + h + x - h * sliced, "@", true);
   let birdpointbg = pointCheck(birdbg);
   if (!lost) {
-    // console.log(birdpointbg);
-
     render(birdpointbg);
     setTimeout(() => {
       if (frametoggle == 4) {
         h++;
         frametoggle = 0;
       }
-      //   h++;
       if (snakemode) {
         movebg(birdbg);
       } else {
@@ -209,13 +152,7 @@ function uLost() {
   console.log(`game over, your score was ${points}`);
   process.exit();
 }
-// function rl() {
-//   readline.question(" ", (input) => {
-//     console.log("click");
-//     if (input) {
-//     }
-//   });
-// }
+
 let onPipe = false;
 function pointCheck(bg) {
   let state = onPipe;
@@ -238,17 +175,8 @@ process.stdin.on("keypress", (str, key) => {
   if (key.ctrl && key.name === "c") {
     process.exit();
   } else if (key.name === "space") {
-    // process.exit();
     h -= 2;
   }
-  //   else {
-  //     console.log(`You pressed the "${str}" key`);
-  //     console.log();
-  //     console.log(key);
-  //     console.log();
-  //   }
 });
-// console.log("Press any key...");
 
 start();
-// rl();
